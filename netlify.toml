@@ -1,33 +1,30 @@
-# =========================
-# Configuração do build
-# =========================
+# netlify.toml - Configuração para Next.js + Netlify
+
 [build]
-  command = "npm run build"          # Comando de build do Next.js
-  publish = ".next"                  # Diretório de publicação para SSR/SSG
+  # Comando para construir o site
+  command = "npm run build"
+  # Diretório de publicação (Next.js via plugin)
+  publish = ".next"
 
-# =========================
-# Ambiente
-# =========================
-[build.environment]
-  NODE_VERSION = "18"                # Versão do Node.js para compatibilidade
-  NPM_FLAGS = "--legacy-peer-deps"  # Resolve conflitos de dependências (opcional)
-
-# =========================
 # Plugins
-# =========================
 [[plugins]]
-  package = "@netlify/plugin-nextjs" # Plugin oficial Next.js para Netlify
+  package = "@netlify/plugin-nextjs"
 
-# =========================
-# Redirecionamentos / SPA fallback (opcional)
-# =========================
+# Redirects gerais (SSR e SPA fallback)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  force = false
 
-# =========================
-# Functions directory (para rotas API)
-# =========================
-[functions]
-  directory = "netlify/functions"   # Se você tiver API routes customizadas
+# Configurações opcionais de environment
+[build.environment]
+  NODE_VERSION = "20"  # Ajuste conforme sua versão local
+  NEXT_PUBLIC_API_URL = "https://api.seusite.com"  # Exemplo variável de ambiente
+
+# Configurações de deploy preview
+[context.deploy-preview.environment]
+  NEXT_PUBLIC_API_URL = "https://api-staging.seusite.com"
+
+[context.branch-deploy.environment]
+  NEXT_PUBLIC_API_URL = "https://api-branch.seusite.com"
