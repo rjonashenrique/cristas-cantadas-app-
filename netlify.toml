@@ -1,12 +1,33 @@
+# =========================
+# Configuração do build
+# =========================
 [build]
-  command = "npm run build"
-  publish = ".next"
+  command = "npm run build"          # Comando de build do Next.js
+  publish = ".next"                  # Diretório de publicação para SSR/SSG
 
+# =========================
+# Ambiente
+# =========================
+[build.environment]
+  NODE_VERSION = "18"                # Versão do Node.js para compatibilidade
+  NPM_FLAGS = "--legacy-peer-deps"  # Resolve conflitos de dependências (opcional)
+
+# =========================
+# Plugins
+# =========================
 [[plugins]]
-  package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs" # Plugin oficial Next.js para Netlify
 
-# Exemplo de redirecionamento para SPA (opcional)
+# =========================
+# Redirecionamentos / SPA fallback (opcional)
+# =========================
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# =========================
+# Functions directory (para rotas API)
+# =========================
+[functions]
+  directory = "netlify/functions"   # Se você tiver API routes customizadas
