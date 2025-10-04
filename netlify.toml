@@ -1,30 +1,7 @@
-# netlify.toml - Configuração para Next.js + Netlify
-
 [build]
-  # Comando para construir o site
   command = "npm run build"
-  # Diretório de publicação (Next.js via plugin)
   publish = ".next"
+  functions = "netlify/functions" # para rotas serverless
 
-# Plugins
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-# Redirects gerais (SSR e SPA fallback)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-
-# Configurações opcionais de environment
-[build.environment]
-  NODE_VERSION = "20"  # Ajuste conforme sua versão local
-  NEXT_PUBLIC_API_URL = "https://api.seusite.com"  # Exemplo variável de ambiente
-
-# Configurações de deploy preview
-[context.deploy-preview.environment]
-  NEXT_PUBLIC_API_URL = "https://api-staging.seusite.com"
-
-[context.branch-deploy.environment]
-  NEXT_PUBLIC_API_URL = "https://api-branch.seusite.com"
